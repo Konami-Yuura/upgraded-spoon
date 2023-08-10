@@ -23,11 +23,18 @@
                 @if(Auth::user()->id === $user->id)
                     <a href="{{route('profile.edit')}}" class="btn btn-outline-secondary btn-sm fw-bold">Edit Profile</a>
                 @else
-                    <form action="#" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-primary btn-sm fw-bold">Follow</button>
-                    </form>
-                    
+                    @if ($user->isFollowed())
+                        <form action="{{route('follow.destroy', $user->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-outline-secondary btn-sm fw-bold">Following</button>
+                        </form>
+                    @else
+                        <form action="{{route('follow.store', $user->id)}}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary btn-sm fw-bold">Follow</button>
+                        </form>
+                    @endif
                 @endif
             </div>
         </div>
@@ -40,14 +47,14 @@
             </div>
 
             <div class="col-auto">
-                <a href="#" class="text-decoration-none text-dark">
-                    <strong>0</strong> followers
+                <a href="{{route('profile.followers', $user->id)}}" class="text-decoration-none text-dark">
+                    <strong>{{$user->followers->count()}}</strong> followers
                 </a>
             </div>
 
             <div class="col-auto">
-                <a href="#" class="text-decoration-none text-dark">
-                    <strong>0</strong> following
+                <a href="{{route('profile.following', $user->id)}}" class="text-decoration-none text-dark">
+                    <strong>{{$user->following->count()}}</strong> following
                 </a>
             </div>
         </div>
