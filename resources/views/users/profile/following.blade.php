@@ -52,7 +52,7 @@
                 </div>
             </div>
         @else
-            <h3 class="text-muted text-center">No Followers Yet</h3>
+            <h3 class="text-muted text-center">No Following Yet</h3>
         @endif
     </div>
 @endsection

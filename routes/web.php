@@ -30,6 +30,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/suggestions', [HomeController::class, 'suggestions'])->name('suggestions');
     // this route all serve the users>posts>create.blade
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     // this will save the post in the db
