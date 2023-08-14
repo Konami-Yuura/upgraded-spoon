@@ -85,7 +85,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
                                     {{--  Admin Controls --}}
-                                    <a href="#" class="dropdown-item">
+                                    <a href="{{route('admin.users')}}" class="dropdown-item">
                                         <i class="fa-solid fa-user-gear"></i> Admin
                                     </a>
 
@@ -122,10 +122,10 @@
                     @if (request()->is('admin/*'))
                     <div class="col-3">
                         <div class="list-group">
-                            <a href="#" class="list-group-item">
+                            <a href="{{route('admin.users')}}" class="list-group-item {{request()->is('admin/users') ? 'active' : ''}}">
                                 <i class="fa-solid fa-users"></i> User
                             </a>
-                            <a href="#" class="list-group-item">
+                            <a href="{{route('admin.posts')}}" class="list-group-item {{request()->is('admin/posts') ? 'active' : ''}}">
                                 <i class="fa-solid fa-newspaper"></i> Post
                             </a>
                             <a href="#" class="list-group-item">

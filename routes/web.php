@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\PostsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -73,4 +75,17 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/follow/{user_id}/store', [FollowController::class, 'store'])->name('follow.store');
     //  this route will unfollow the user
     Route::delete('/follow/{user_id}/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
+
+    //Admin
+    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
+        // USERS
+        Route::get('/users', [UsersController::class, 'index'])->name('users');
+        // this route will deactivate a certain user in admin panel
+        Route::delete('users/{id}/deactivate', [UsersController::class, 'deactivate'])->name('users.deactivate');
+        // this route will activate a certain user that is recently deactivate 
+        Route::patch('users/{id}/activate', [UsersController::class, 'activate'])->name('users.activate');
+
+        //POSTS
+        Route::get('/posts', [PostsController::class, 'index'])->name('posts');
+    });
 });
