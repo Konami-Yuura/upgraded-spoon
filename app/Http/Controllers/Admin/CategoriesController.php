@@ -43,11 +43,11 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|min:1|max:50|unique:categories,name' . $id
+            'new_name' => 'required|min:1|max:50|unique:categories,name,' . $id
         ]);
 
         $category = $this->category->findOrFail($id);
-        $category->name = ucwords(strtolower($request->name));
+        $category->name = ucwords(strtolower($request->new_name));
         $category->save();
 
         return redirect()->back();
