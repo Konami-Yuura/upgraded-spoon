@@ -33,16 +33,18 @@
                         @endforeach
                     </td>
                     {{-- owner --}}
-                    <td>{{$post->user->name}}</td>
+                    <td>
+                        <a href="{{route('profile.show', $post->user->id)}}" class="text-dark text-decoration-none">{{ $post->user->name}}</a>
+                    </td>
                     {{-- created at --}}
                     <td>{{$post->created_at}}</td>
                     {{-- status --}}
                     <td>
-                        {{-- @if ($post->trashed())
-                        <i class="fa-regular fa-circle text-secondary"></i>&nbsp; Unvisible
-                    @else --}}
-                        <i class="fa-solid fa-circle text-success"></i>&nbsp; Visible
-                    {{-- @endif --}}
+                        @if ($post->trashed())
+                            <i class="fa-solid fa-circle-minus text-secondary"></i>&nbsp; Hidden
+                        @else
+                            <i class="fa-solid fa-circle text-primary"></i>&nbsp; Visible
+                        @endif
                     </td>
                     {{-- dropdown menu/ellipsis --}}
                     <td>
@@ -52,18 +54,19 @@
                             </button>
 
                             <div class="dropdown-menu">
-                                {{-- @if ($post->trashed()) --}}
-                                    {{-- <button class="dropdown-item text-success" data-bs-toggle="modal" data-bs-target="#activate-user-{{$user->id}}">
-                                        <i class="fa-solid fa-user-check"></i> Activete {{$post->id}}
+                                @if ($post->trashed())
+                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#unhide-post-{{$post->id}}">
+                                        <i class="fa-solid fa-eye"></i> Unhide Post {{$post->id}}
                                     </button>
-                                @else --}}
-                                    {{-- <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deactivate-user-{{$user->id}}">
-                                        <i class="fa-solid fa-user-slash"></i> Hide {{$post->id}}
-                                    </button> --}}
-                                {{-- @endif --}}
+                                @else
+                                    <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#hide-post-{{$post->id}}">
+                                        <i class="fa-solid fa-eye-slash"></i> Hide Post {{$post->id}}
+                                    </button>
+                                @endif
                             </div>
                         </div>
                         {{-- include the modal here--}}
+                        @include('admin.posts.modal.status')
                     </td>
                 </tr>
             @empty
@@ -73,6 +76,7 @@
             @endforelse
         </tbody>
     </table>
-
-    {{$all_posts->links()}}
+        <div class="d-flex justify-content-center">
+            {{$all_posts->links()}}
+        </div>
 @endsection

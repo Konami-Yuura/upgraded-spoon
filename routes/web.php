@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
+use App\Http\Controllers\Admin\CategoriesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -85,7 +86,18 @@ Route::group(['middleware' => 'auth'], function(){
         // this route will activate a certain user that is recently deactivate 
         Route::patch('users/{id}/activate', [UsersController::class, 'activate'])->name('users.activate');
 
-        //POSTS
+        // POSTS
         Route::get('/posts', [PostsController::class, 'index'])->name('posts');
+        // this route will hide a  post
+        Route::delete('posts/{id}/hide', [PostsController::class, 'hide'])->name('posts.hide');
+        // this route will restore/unhide a post
+        Route::patch('posts/{id}/unhide', [PostsController::class, 'unhide'])->name('posts.unhide');
+
+        // Categories
+        Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
+        // this route will store  category
+        Route::post('/categories/store', [CategoriesController::class, 'store'])->name('categories.store');
+        // this route will update a category
+        Route::patch('/categories/{id}/update', [CategoriesController::class, 'update'])->name('categories.update');
     });
 });
