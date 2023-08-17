@@ -37,10 +37,20 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    {{-- [SOON] Serch baer here. Show it when a user logs in. --}}
-                    <ul class="navbar-nav me-auto">
+                    {{-- [SOON] Search baer here. Show it when a user logs in. --}}
+                    {{-- <ul class="navbar-nav me-auto">
 
-                    </ul>
+                    </ul> --}}
+                    @auth
+                        @if(!request()->is('admin/*'))
+                            <ul class="navber-nav ms-auto">
+                                <form action="{{route('search')}}" style="width: 300px">
+                                    <input type="search" name="search" class="form-control form-control-sm" placeholder="Search...">
+                                </form>
+                            </ul>
+                        @endif
+                    @endauth
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -85,11 +95,12 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
                                     {{--  Admin Controls --}}
-                                    <a href="{{route('admin.users')}}" class="dropdown-item">
-                                        <i class="fa-solid fa-user-gear"></i> Admin
-                                    </a>
-
-                                    <hr class="dropdown-divider">
+                                    @can('admin')
+                                        <a href="{{route('admin.users')}}" class="dropdown-item">
+                                            <i class="fa-solid fa-user-gear"></i> Admin
+                                        </a>
+                                        <hr class="dropdown-divider">
+                                    @endcan
 
                                     {{-- Profile --}}
                                     <a href="{{route('profile.show', Auth::user()->id)}}" class="dropdown-item">

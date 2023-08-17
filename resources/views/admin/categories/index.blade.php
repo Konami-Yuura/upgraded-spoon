@@ -44,7 +44,7 @@
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
                                 {{-- delete button --}}
-                                <button class="btn btn-outline-danger btn-sm me-2" data-bs-toggle="modal" data-bs-target="#delete-category{{$category->id}}" title="Delete">
+                                <button class="btn btn-outline-danger btn-sm me-2" data-bs-toggle="modal" data-bs-target="#delete-category-{{$category->id}}" title="Delete">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </td>
@@ -57,6 +57,16 @@
                             </td>
                         </tr>
                     @endforelse
+                    <tr>
+                        <td></td>
+                        <td class="text-dark">
+                            Uncategorized
+                            <p class="xsmall mb-0 text-muted">Hidden posts are not included.</p>
+                        </td>
+                        <td>{{$uncategorized_count}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">

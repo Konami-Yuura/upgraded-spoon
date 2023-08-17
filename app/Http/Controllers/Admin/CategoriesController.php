@@ -5,21 +5,38 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Post;
 
 class CategoriesController extends Controller
 {
     private $category;
+    private $posts;
 
-    public function __construct(Category $category)
+    public function __construct(Category $category, Post $post)
     {
         $this->category = $category;
+        $this->post = $post;
     }
 
     public function index()
     {
         $all_categories = $this->category->orderBy('updated_at', 'desc')->paginate(3);
 
-        return view('admin.categories.index')->with('all_categories', $all_categories);
+        $uncategorized_count = 0;
+        $all_posts = $this->post->all();
+
+        foreach($all_posts as $post)
+        {
+            if($post->categoryPost->count() == 0)
+            {
+                // $uncategorized_count = $uncategorized_count + 1;
+                $uncategorized_count++;
+            }
+        }
+
+        return view('admin.categories.index')
+            ->with('all_categories', $all_categories)
+            ->with('uncategorized_count', $uncategorized_count);
     }
 
     public function store(Request $request)
@@ -52,5 +69,11 @@ class CategoriesController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function destroy($id)
+    {
+        $this->category->destroy($id);
+        return redirect()->back();
     }
 }

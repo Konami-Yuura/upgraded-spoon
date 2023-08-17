@@ -26,11 +26,13 @@
                     </td>
                     {{-- category --}}
                     <td>
-                        @foreach ($post->categoryPost as $category_post)
-                            <div class="badge bg-secondary bg-opacity-50">
+                        @forelse ($post->categoryPost as $category_post)
+                            <span class="badge bg-secondary bg-opacity-50">
                                 {{$category_post->category->name}}
-                            </div>
-                        @endforeach
+                            </span>
+                        @empty
+                            <div class="badge bg-dark text-wrap">Uncategorized</div>
+                        @endforelse
                     </td>
                     {{-- owner --}}
                     <td>

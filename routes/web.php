@@ -33,6 +33,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/people', [HomeController::class, 'search'])->name('search');
     Route::get('/suggestions', [HomeController::class, 'suggestions'])->name('suggestions');
     // this route all serve the users>posts>create.blade
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
@@ -78,7 +79,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/follow/{user_id}/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
 
     //Admin
-    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
         // USERS
         Route::get('/users', [UsersController::class, 'index'])->name('users');
         // this route will deactivate a certain user in admin panel
@@ -99,5 +100,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/categories/store', [CategoriesController::class, 'store'])->name('categories.store');
         // this route will update a category
         Route::patch('/categories/{id}/update', [CategoriesController::class, 'update'])->name('categories.update');
+        // ths route will delete a category
+        Route::delete('/categories/{id}/destroy', [CategoriesController::class, 'destroy'])->name('categories.destroy');
     });
 });

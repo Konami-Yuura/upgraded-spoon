@@ -14,6 +14,13 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    const ADMIN_ROLE_ID = 1;
+    const USER_ROLE_ID = 2;
+    /**  constant (const) $ regular variable ($myVar)
+    * const  -> doesn't Change and able to call only once 
+    * const always goes CAPITAL LETTER
+    **/
+
     /**
      * The attributes that are mass assignable.
      *

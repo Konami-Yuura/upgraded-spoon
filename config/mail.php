@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    // 'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => 'smtp',
 
     /*
     |--------------------------------------------------------------------------
@@ -36,11 +37,16 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            // 'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => 'sandbox.smtp.mailtrap.io',
+            // 'port' => env('MAIL_PORT', 587),
+            'port' => 587,
+            // 'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'encryption' =>  'tls',
+            // 'username' => env('MAIL_USERNAME'),
+            // 'password' => env('MAIL_PASSWORD'),
+            'username' => '97d7e48bea9517',
+            'password' => 'abd93f6ac77ff7',
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -59,12 +65,14 @@ return [
 
         'sendmail' => [
             'transport' => 'sendmail',
-            'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -t -i'),
+            // 'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -t -i'),
+            'path' => '/usr/sbin/sendmail -t -i',
         ],
 
         'log' => [
             'transport' => 'log',
-            'channel' => env('MAIL_LOG_CHANNEL'),
+            // 'channel' => env('MAIL_LOG_CHANNEL'),
+            'channel' => 'mail',
         ],
 
         'array' => [
@@ -92,8 +100,10 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        // 'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        // 'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => 'noreply@igram.com',
+        'name' => 'IGram',
     ],
 
     /*

@@ -21,3 +21,28 @@
         </form>
     </div>
 </div>
+
+{{-- Delete --}}
+<div class="modal fade" id="delete-category-{{$category->id}}">
+    <div class="modal-dialog">
+        <form action="{{route('admin.categories.destroy', $category->id)}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <div class="modal-content border-dangger">
+                <div class="modal-header border-danger">
+                    <h5 class="modal-title text-danger">
+                        <i class="fa-solid fa-trash-can"></i> Delete Category
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete <span class="fw-bold">{{$category->name}}</span> category?</p>
+                    <p class="fw-light">This action will affect all the posts unser this category. Posts without a cetegory will fall under Uncategorized.</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

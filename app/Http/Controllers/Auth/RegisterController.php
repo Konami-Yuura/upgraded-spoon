@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -64,10 +65,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $details = [
+            'name' => $user->name,
+            // 'appUrl' => config('app.url')
+            'appUrl' => 'http://donna-insta-app-06c5ca165eff.herokuapp.com/login'
+        ];
+
+        Mail::send('users.emails.register-confirmation', $details, function($message) use ($user){
+            $message
+                // ->from(env('MAIL_FROM_ADDRESS'), config('app.name'))
+                ->from('noreply@igram.com')
+                ->to($user->email, $user->name)
+                ->subject('Thank you for registering in Kredo IG App!');
+        });
+
+        return $user;
     }
 }
